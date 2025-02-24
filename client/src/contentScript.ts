@@ -1,16 +1,16 @@
-import type { InboxSDK as InboxSDKType } from '@inboxsdk/core';
+/// <reference types="chrome" />
 import { loadInboxSDK } from '@inboxsdk/core';
 
-export const initInboxSDK = async () => {
+const initInboxSDK = async () => {
   try {
     const sdk = await loadInboxSDK(2, import.meta.env.VITE_INBOXSDK_APP_ID);
 
+    // Add compose button
     sdk.Compose.registerComposeViewHandler((composeView) => {
       composeView.addButton({
         title: "My Extension Button",
         iconUrl: chrome.runtime.getURL('icon.png'),
         onClick: () => {
-          // Handle button click
           console.log('Button clicked in compose view');
         },
       });
@@ -20,3 +20,5 @@ export const initInboxSDK = async () => {
     console.error('Failed to load InboxSDK:', error);
   }
 };
+
+initInboxSDK();

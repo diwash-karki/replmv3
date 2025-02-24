@@ -17,6 +17,16 @@ export const db = getFirestore(app);
 export const loginWithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
+    // Add scopes for Gmail access
+    provider.addScope('https://www.googleapis.com/auth/gmail.modify');
+
+    if (typeof chrome !== 'undefined' && chrome.runtime?.id) {
+      // Running as Chrome extension
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+    }
+
     const result = await signInWithPopup(auth, provider);
     return result.user;
   } catch (error) {
