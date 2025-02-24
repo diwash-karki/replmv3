@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail Extension",
+  "version": "1.0",
+  "description": "Gmail extension with Firebase auth and InboxSDK",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Gmail Extension"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["src/lib/inboxsdk.ts"]
+    }
+  ]
+}
